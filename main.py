@@ -30,6 +30,9 @@ yesterday = (datetime.now() - timedelta(days=1))
 news = pd.DataFrame()
 
 for item in os.environ["keywords"].split(","):
-    new_novo = get_news(item, yesterday.strftime("%Y-%m-%d"))
+    news_item = get_news(item, yesterday.strftime("%Y-%m-%d"))
+    news_item = pd.DataFrame(news_item)
+
+    news = news.append(news_item, ignore_index = True)
 
 news.to_json(yesterday.strftime("%Y%m%d")+".json")
