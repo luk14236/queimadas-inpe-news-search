@@ -18,6 +18,7 @@ jobs:
     steps:
       - name: Setting up
         uses: actions/checkout@v3
+      - name: Export envs
         run: |
           ENV_JSON='${{ secrets.KEYWORDS }}'
           echo "$ENV_JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
