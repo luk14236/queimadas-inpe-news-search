@@ -12,7 +12,7 @@ def get_news(keyword, data_search):
     conn = http.client.HTTPConnection('api.mediastack.com')
 
     params = urllib.parse.urlencode({
-        'access_key': os.environ["key"],
+        'access_key': os.environ["KEY"],
         'keywords': keyword,
         'sort': 'published_desc',
         'date':data_search,
@@ -30,7 +30,7 @@ yesterday = (datetime.now() - timedelta(days=1))
 
 news = pd.DataFrame()
 
-for item in os.environ["keywords"].split(","):
+for item in os.environ["KEYWORDS"].split(","):
     news_item = get_news(item, yesterday.strftime("%Y-%m-%d"))
     
     json_str = news_item.decode('utf-8')
