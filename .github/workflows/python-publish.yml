@@ -18,6 +18,9 @@ jobs:
     steps:
       - name: Setting up
         uses: actions/checkout@v3
+        run: |
+          ENV_JSON='${{ secrets.KEYWORDS }}'
+          echo "$ENV_JSON" | jq -r 'to_entries[] | "\(.key)=\(.value)"' >> $GITHUB_ENV
       - name: setting up requirements
         uses: actions/setup-python@v2
         with:
