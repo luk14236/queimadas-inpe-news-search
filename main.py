@@ -32,11 +32,12 @@ news = pd.DataFrame()
 
 for item in os.environ["keywords"].split(","):
     news_item = get_news(item, yesterday.strftime("%Y-%m-%d"))
-    news_item = pd.read_json(json.loads(news_item)) 
+    
+    json_str = news_item.decode('utf-8')
+    json_data = json.loads(json_str)
 
-    #a_json = 
-    #dataframe = pd.DataFrame.from_dict(a_json)
+    news_item = pd.DataFrame(json_data["data"])
 
     news = pd.concat([news, news_item], ignore_index=True)
 
-news.to_json(yesterday.strftime("%Y%m%d")+".json")
+news.to_json("news/"+yesterday.strftime("%Y%m%d")+".json", orient="records", force_ascii=False)
